@@ -545,6 +545,7 @@ app.post('/webhook/', (req, res) => {
                     messaging_events.forEach((event) => {
 						
 						lastSessionId = event.sender;
+						console.log(lastSessionId);
 						
                         if (event.message && !event.message.is_echo) {
 
@@ -601,11 +602,12 @@ app.listen(REST_PORT, () => {
 app.get('/event/', (req, res) => {
 	
 	facebookBot.doTextResponse(lastSessionId, "no te olvides de mi");
+	console.log("ultima sesion: " + lastSessionId);
     res.send("enviando evento.");
 });
 
 app.get('/last/', (req, res) => {
-	
-    res.send("sessionIds:" + lastSessionId);
+	console.log("ultima sesion: " + lastSessionId);
+    res.send("ultima sesion: " + lastSessionId);
 });
 facebookBot.doSubscribeRequest();
