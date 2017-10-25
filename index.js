@@ -544,7 +544,7 @@ app.post('/webhook/', (req, res) => {
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
 						
-						lastSessionId = event.sender;
+						lastSessionId = event.sender.toString;
 						console.log(lastSessionId);
 						
                         if (event.message && !event.message.is_echo) {
