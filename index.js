@@ -602,6 +602,6 @@ app.get('/event/', (req, res) => {
 
 app.get('/last/', (req, res) => {
 	
-    res.send("sessionIds:" + this.sessionIds.toString);
+    res.send("sessionIds:" + facebookBot.sessionIds.toString);
 });
 facebookBot.doSubscribeRequest();
