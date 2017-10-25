@@ -601,7 +601,7 @@ app.listen(REST_PORT, () => {
 
 app.get('/event/', (req, res) => {
 	
-	facebookBot.doTextResponse(lastSessionId, "no te olvides de mi");
+	facebookBot.doTextResponse(lastSessionId.id, "no te olvides de mi");
 	console.log("ultima sesion: " + lastSessionId);
     res.send("enviando evento.");
 });
