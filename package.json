@@ -17,6 +17,12 @@
   },
   "homepage": "https://github.com/rodhmolina/titoteavisa#readme",
   "dependencies": {
-    "apiai": "^4.0.3"
+    "apiai": "^4.0.3",
+    "async": "^2.5.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "json-bigint": "^0.2.3",
+    "request": "^2.83.0",
+    "uuid": "^3.1.0"
   }
 }

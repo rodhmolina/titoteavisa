@@ -596,7 +596,7 @@ app.listen(REST_PORT, () => {
 app.get('/event/', (req, res) => {
 	sender = getSenderBySessionId(req.body.sessionId);
 	facebookBot.doTextResponse(sender, "no te olvides de mi");
-    res.send();
+    res.send("enviando evento.");
 });
 
 facebookBot.doSubscribeRequest();
