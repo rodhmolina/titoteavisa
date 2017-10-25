@@ -600,14 +600,14 @@ app.listen(REST_PORT, () => {
 });
 
 app.get('/event/', (req, res) => {
-	
-	facebookBot.doTextResponse(lastSessionId.id, "no te olvides de mi");
-	console.log("ultima sesion: " + lastSessionId);
+	var id = req.body.sender;
+	facebookBot.doTextResponse(id, "no te olvides de mi");
+	console.log("parametro: " + id);
     res.send("enviando evento.");
 });
 
 app.get('/last/', (req, res) => {
-	console.log("ultima sesion: " + lastSessionId);
-    res.send("ultima sesion: " + lastSessionId);
+	console.log("ultima sesion: " + lastSessionId.id);
+    res.send("ultima sesion: " + lastSessionId.id);
 });
 facebookBot.doSubscribeRequest();
