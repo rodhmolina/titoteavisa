@@ -519,6 +519,7 @@ let facebookBot = new FacebookBot();
 
 const app = express();
 
+var lastSessionId = "";
 app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
@@ -542,6 +543,9 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
+						
+						lastSessionId = event.sender;
+						
                         if (event.message && !event.message.is_echo) {
 
                             if (event.message.attachments) {
@@ -564,7 +568,7 @@ app.post('/webhook/', (req, res) => {
                                     });
                                 }
                             }
-
+							
                             facebookBot.processMessageEvent(event);
                         } else if (event.postback && event.postback.payload) {
                             if (event.postback.payload === "FACEBOOK_WELCOME") {
@@ -595,13 +599,13 @@ app.listen(REST_PORT, () => {
 });
 
 app.get('/event/', (req, res) => {
-	sender = getSenderBySessionId(req.body.sessionId);
-	facebookBot.doTextResponse(sender, "no te olvides de mi");
+	
+	facebookBot.doTextResponse(lastSessionId, "no te olvides de mi");
     res.send("enviando evento.");
 });
 
 app.get('/last/', (req, res) => {
-	var session = facebookBot.sessionIds.entries();
-    res.send("sessionIds:" + session.next().value);
+	
+    res.send("sessionIds:" + lastSessionId);
 });
 facebookBot.doSubscribeRequest();
