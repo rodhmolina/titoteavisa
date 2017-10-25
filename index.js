@@ -601,7 +601,7 @@ app.get('/event/', (req, res) => {
 });
 
 app.get('/last/', (req, res) => {
-	
-    res.send("sessionIds:" + facebookBot.sessionIds.toString);
+	session = facebookBot.sessionIds.entries();
+    res.send("sessionIds:" + session.next().value);
 });
 facebookBot.doSubscribeRequest();
