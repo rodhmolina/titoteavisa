@@ -601,9 +601,8 @@ app.listen(REST_PORT, () => {
 
 app.post('/event/', (req, res) => {
 	const data = JSONbig.parse(req.body);
-	facebookBot.doTextResponse(lastSessionId, "no te olvides de mi");
+	facebookBot.doTextResponse(data.sender, "no te olvides de mi");
 	console.log("sessionId: " + data.sender);
-	console.log("parametro: " + req.body);
     res.send("enviando evento a: " + data.sender);
 });
 
