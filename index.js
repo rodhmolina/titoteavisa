@@ -40,7 +40,6 @@ class FacebookBot {
         this.sessionIds = new Map();
         this.messagesDelay = 200;
     }
-
 	getSenderBySessionId(sessionId) {
 		var flag=false;
 		var sender;
@@ -546,7 +545,6 @@ app.post('/webhook/', (req, res) => {
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
 						console.log(JSON.stringify(event.sender));
-						console.log(JSON.stringify(facebookBot.sessionIds));
 /* 						lastSessionId = JSON.stringify(event.sender);
 						console.log(lastSessionId); */
 						
@@ -617,12 +615,10 @@ app.post('/event/', (req, res) => {
 app.post('/fulfillment/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	let action = data.result.action;
+	setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000);
 	if(action === "nuevorecordatorio"){
-/* 		// Handle a text message from this sender
-            if (!aiSessions.has(data.sessionId)) {
-                aiSessions.set(data.sessionId, );
-            }
-		setTimeout(facebookBot.doTextResponse(aiSessions.get(data.sessionId), "pingggg"), 3000); */
+		// Handle a text message from this sender
+		setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "evento"), 3000);
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     return res.status(200);
