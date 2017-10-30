@@ -324,7 +324,6 @@ class FacebookBot {
 
     processMessageEvent(event) {
         const sender = event.sender.id.toString();
-		this.lastSessionId = this.sessionIds.get(sender);
         const text = this.getEventText(event);
 
         if (text) {
@@ -518,8 +517,8 @@ class FacebookBot {
 let facebookBot = new FacebookBot();
 
 const app = express();
+aiSessions = new Map();
 
-var lastSessionId = "";
 app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
@@ -537,6 +536,9 @@ app.get('/webhook/', (req, res) => {
 app.post('/webhook/', (req, res) => {
     try {
         const data = JSONbig.parse(req.body);
+		
+		console.log(facebookBot.sessionIds.get(event.sender));
+		
         if (data.entry) {
             let entries = data.entry;
             entries.forEach((entry) => {
@@ -544,8 +546,8 @@ app.post('/webhook/', (req, res) => {
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
 						
-						lastSessionId = JSON.stringify(event.sender);
-						console.log(lastSessionId);
+/* 						lastSessionId = JSON.stringify(event.sender);
+						console.log(lastSessionId); */
 						
                         if (event.message && !event.message.is_echo) {
 
@@ -601,13 +603,27 @@ app.listen(REST_PORT, () => {
 
 app.post('/event/', (req, res) => {
 	const data = JSONbig.parse(req.body);
-	facebookBot.doTextResponse(data.sender, "no te olvides de mi");
-	console.log("sessionId: " + data.sender);
-    res.send("enviando evento a: " + data.sender);
+	//TODO let sender = data.sessionId;
+	let sender = facebookBot.getSenderBySessionId(data.sessionId);
+	//TODO let message = data.event.message;
+	let message = "getSenderBySessionId";
+	facebookBot.doTextResponse(sender, message);
+	
+	console.log("data: " + JSON.stringify(data));
+    res.send("enviando evento a: " + sender);
 });
 
-app.get('/last/', (req, res) => {
-	console.log("ultima sesion: " + lastSessionId);
-    res.send("ultima sesion: " + lastSessionId);
+app.post('/fulfillment/', (req, res) => {
+	const data = JSONbig.parse(req.body);
+	let action = data.result.action;
+	if(action === "nuevorecordatorio"){
+/* 		// Handle a text message from this sender
+            if (!aiSessions.has(data.sessionId)) {
+                aiSessions.set(data.sessionId, );
+            }
+		setTimeout(facebookBot.doTextResponse(aiSessions.get(data.sessionId), "pingggg"), 3000); */
+	}
+	console.log("fulfillment:\n" + JSON.stringify(data));
+    return res.status(200);
 });
 facebookBot.doSubscribeRequest();
