@@ -600,11 +600,11 @@ app.listen(REST_PORT, () => {
 });
 
 app.post('/event/', (req, res) => {
-	var id = req.body.sender;
-	facebookBot.doTextResponse(id, "no te olvides de mi");
-	console.log("sessionId: " + facebookBot.lastSessionId);
-	console.log("parametro: " + req.body.sender);
-    res.send("enviando evento a: " + facebookBot.lastSessionId);
+	const data = JSONbig.parse(req.body);
+	facebookBot.doTextResponse(lastSessionId, "no te olvides de mi");
+	console.log("sessionId: " + data.sender);
+	console.log("parametro: " + req.body);
+    res.send("enviando evento a: " + data.sender);
 });
 
 app.get('/last/', (req, res) => {
