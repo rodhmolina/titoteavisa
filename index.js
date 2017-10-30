@@ -609,6 +609,6 @@ app.post('/event/', (req, res) => {
 
 app.get('/last/', (req, res) => {
 	console.log("ultima sesion: " + facebookBot.lastSessionId);
-    res.send("ultima sesion: " + .facebookBot.lastSessionId.id);
+    res.send("ultima sesion: " + facebookBot.lastSessionId.id);
 });
 facebookBot.doSubscribeRequest();
