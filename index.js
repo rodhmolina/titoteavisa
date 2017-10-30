@@ -599,7 +599,7 @@ app.listen(REST_PORT, () => {
     console.log('Rest service ready on port ' + REST_PORT);
 });
 
-app.get('/event/', (req, res) => {
+app.post('/event/', (req, res) => {
 	var id = req.body.sender;
 	facebookBot.doTextResponse(id, "no te olvides de mi");
 	console.log("parametro: " + id);
@@ -607,7 +607,7 @@ app.get('/event/', (req, res) => {
 });
 
 app.get('/last/', (req, res) => {
-	console.log("ultima sesion: " + lastSessionId.id);
+	console.log("ultima sesion: " + lastSessionId);
     res.send("ultima sesion: " + lastSessionId.id);
 });
 facebookBot.doSubscribeRequest();
