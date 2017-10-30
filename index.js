@@ -615,10 +615,10 @@ app.post('/event/', (req, res) => {
 app.post('/fulfillment/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	let action = data.result.action;
-	setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000);
+	/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000); */
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
-		setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "evento"), 3000);
+		/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "evento"), 3000); */
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     return res.status(200);
