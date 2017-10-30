@@ -517,7 +517,7 @@ class FacebookBot {
 let facebookBot = new FacebookBot();
 
 const app = express();
-aiSessions = new Map();
+var aiSessions = new Map();
 
 app.use(bodyParser.text({type: 'application/json'}));
 
