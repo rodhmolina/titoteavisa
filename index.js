@@ -602,12 +602,13 @@ app.listen(REST_PORT, () => {
 app.post('/event/', (req, res) => {
 	var id = req.body.sender;
 	facebookBot.doTextResponse(id, "no te olvides de mi");
-	console.log("parametro: " + id);
-    res.send("enviando evento.");
+	console.log("sessionId: " + facebookBot.lastSessionId.id);
+	console.log("parametro: " + req.body.sender);
+    res.send("enviando evento a: " + facebookBot.lastSessionId.id);
 });
 
 app.get('/last/', (req, res) => {
-	console.log("ultima sesion: " + lastSessionId);
-    res.send("ultima sesion: " + lastSessionId.id);
+	console.log("ultima sesion: " + facebookBot.lastSessionId);
+    res.send("ultima sesion: " + .facebookBot.lastSessionId.id);
 });
 facebookBot.doSubscribeRequest();
