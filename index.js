@@ -537,7 +537,7 @@ app.post('/webhook/', (req, res) => {
     try {
         const data = JSONbig.parse(req.body);
 		
-		console.log(facebookBot.sessionIds.get(event.sender));
+		
 		
         if (data.entry) {
             let entries = data.entry;
@@ -545,7 +545,7 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
-						
+						console.log(facebookBot.sessionIds.get(event.sender));
 /* 						lastSessionId = JSON.stringify(event.sender);
 						console.log(lastSessionId); */
 						
