@@ -623,7 +623,7 @@ app.post('/fulfillment/', (req, res) => {
                 app.aiSessions.set(sessionId,sender);
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
-		var date = new Date(data.result.parameters.time-period); // some mock date
+		var date = new Date(data.result.parameters.time); // some mock date
 		var milliseconds = date.getTime() - date.now();
 		
 		setTimeout(function(){
