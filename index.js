@@ -604,7 +604,8 @@ app.post('/event/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	//TODO let sender = data.sessionId;
 	/* let sender = facebookBot.getSenderBySessionId(data.sessionId); */
-	let sender = app.aiSessions.get(data.sessionId);
+	/* let sender = app.aiSessions.get(data.sessionId); */
+	let sender = app.aiSessions.get(data.sender);
 	//TODO let message = data.event.message;
 	let message = "event";
 	facebookBot.doTextResponse(sender, message);
