@@ -603,9 +603,10 @@ app.listen(REST_PORT, () => {
 app.post('/event/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	//TODO let sender = data.sessionId;
-	let sender = facebookBot.getSenderBySessionId(data.sessionId);
+	/* let sender = facebookBot.getSenderBySessionId(data.sessionId); */
+	let sender = aiSessions.get(data.sessionId);
 	//TODO let message = data.event.message;
-	let message = "getSenderBySessionId";
+	let message = "event";
 	facebookBot.doTextResponse(sender, message);
 	
 	console.log("data: " + JSON.stringify(data));
@@ -615,12 +616,18 @@ app.post('/event/', (req, res) => {
 app.post('/fulfillment/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	let action = data.result.action;
-	/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000); */
+	let sender = data.originalRequest.data.sender;
+	let sessionId = data.sessionId;
+	
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
-		/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "evento"), 3000); */
+		if (!aiSessions.has(sender)) {
+                aiSessions.set(sessionId,sender);
+            }
+		/* setTimeout(facebookBot.doTextResponse(data.originalRequest.data.sender.id, "evento"), 3000); */
+		/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000); */
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
-    return res.status(200);
+    res.send("ok");
 });
 facebookBot.doSubscribeRequest();
