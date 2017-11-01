@@ -610,6 +610,10 @@ app.post('/event/', (req, res) => {
 	facebookBot.doTextResponse(sender, message);
 	
 	console.log("data: " + JSON.stringify(data));
+	var iter = app.aiSessions.entries();
+	
+	console.log("sessions: " + iter.next().value);
+	
     res.send("enviando evento a: " + sender);
 });
 
