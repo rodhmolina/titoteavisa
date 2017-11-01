@@ -624,7 +624,7 @@ app.post('/fulfillment/', (req, res) => {
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
 		var date = new Date(data.result.parameters.time); // some mock date
-		var milliseconds = date.getTime() - date.now();
+		var milliseconds = date.getTime() - Date.now();
 		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
