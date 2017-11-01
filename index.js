@@ -516,7 +516,7 @@ class FacebookBot {
 let facebookBot = new FacebookBot();
 
 const app = express();
-var aiSessions = new Map();
+app.aiSessions = new Map();
 
 app.use(bodyParser.text({type: 'application/json'}));
 
@@ -604,7 +604,7 @@ app.post('/event/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	//TODO let sender = data.sessionId;
 	/* let sender = facebookBot.getSenderBySessionId(data.sessionId); */
-	let sender = aiSessions.get(data.sessionId);
+	let sender = app.aiSessions.get(data.sessionId);
 	//TODO let message = data.event.message;
 	let message = "event";
 	facebookBot.doTextResponse(sender, message);
@@ -621,8 +621,8 @@ app.post('/fulfillment/', (req, res) => {
 	
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
-		if (!aiSessions.has(sessionId)) {
-                aiSessions.set(sessionId,sender);
+		if (!app.aiSessions.has(sessionId)) {
+                app.aiSessions.set(sessionId,sender);
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
 		/* setTimeout(facebookBot.doTextResponse(data.originalRequest.data.sender.id, "evento"), 3000); */
