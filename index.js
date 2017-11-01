@@ -623,10 +623,13 @@ app.post('/fulfillment/', (req, res) => {
                 app.aiSessions.set(sessionId,sender);
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
+		var date = new Date(data.result.parameters.time-period); // some mock date
+		var milliseconds = date.getTime() - date.now();
+		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
 		}, 3000);
-
+		console.log("timer on: " + milliseconds);
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
