@@ -623,8 +623,10 @@ app.post('/fulfillment/', (req, res) => {
                 app.aiSessions.set(sessionId,sender);
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
-		setTimeout(facebookBot.doTextResponse(sender, "evento automatico"), 3000);
-		/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000); */
+		setTimeout(function(){
+			facebookBot.doTextResponse(sender, "evento automatico");
+		}, 3000);
+
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
