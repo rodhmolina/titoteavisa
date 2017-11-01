@@ -616,7 +616,7 @@ app.post('/event/', (req, res) => {
 app.post('/fulfillment/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	let action = data.result.action;
-	let sender = data.originalRequest.data.sender;
+	let sender = data.originalRequest.data.sender.id;
 	let sessionId = data.sessionId;
 	
 	if(action === "nuevorecordatorio"){
