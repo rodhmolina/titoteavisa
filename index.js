@@ -625,7 +625,7 @@ app.post('/fulfillment/', (req, res) => {
             }
 		console.log("calculating time for: " + data.result.parameters.time);
 		var date = new Date(data.result.parameters.time); // some mock date
-		var milliseconds = date.getTime() - Date.now();
+		var milliseconds = date.getTime() - new Date();
 		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
