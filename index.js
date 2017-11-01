@@ -40,7 +40,7 @@ class FacebookBot {
         this.sessionIds = new Map();
         this.messagesDelay = 200;
     }
-	getSenderBySessionId(sessionId) {
+/* 	getSenderBySessionId(sessionId) {
 		var flag=false;
 		var sender;
 		for (key in this.sessionIds){
@@ -56,7 +56,7 @@ class FacebookBot {
 		else{
 			 return false;
 		}
-	}
+	} */
 	
     doDataResponse(sender, facebookResponseData) {
         if (!Array.isArray(facebookResponseData)) {
@@ -602,19 +602,12 @@ app.listen(REST_PORT, () => {
 
 app.post('/event/', (req, res) => {
 	const data = JSONbig.parse(req.body);
-	//TODO let sender = data.sessionId;
-	/* let sender = facebookBot.getSenderBySessionId(data.sessionId); */
-	/* let sender = app.aiSessions.get(data.sessionId); */
-	let sender = app.aiSessions.get(data.sender);
-	//TODO let message = data.event.message;
-	let message = "event";
+
+	let sender = app.aiSessions.get(data.sessionId);
+	let message = data.message;
 	facebookBot.doTextResponse(sender, message);
 	
-	console.log("data: " + JSON.stringify(data));
-	var iter = app.aiSessions.entries();
-	
-	console.log("sessions: " + iter.next().value);
-	
+	console.log("data: " + JSON.stringify(data));	
     res.send("enviando evento a: " + sender);
 });
 
@@ -630,7 +623,7 @@ app.post('/fulfillment/', (req, res) => {
                 app.aiSessions.set(sessionId,sender);
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
-		/* setTimeout(facebookBot.doTextResponse(data.originalRequest.data.sender.id, "evento"), 3000); */
+		setTimeout(facebookBot.doTextResponse(sender, "evento automatico"), 3000);
 		/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000); */
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
