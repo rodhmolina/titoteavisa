@@ -621,9 +621,9 @@ app.post('/fulfillment/', (req, res) => {
 	
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
-		if (!aiSessions.has(sender)) {
+		if (!aiSessions.has(sessionId)) {
                 aiSessions.set(sessionId,sender);
-				console.log("saving " + JSON.stringify(sessionId) + JSON.stringify(sender));
+				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
 		/* setTimeout(facebookBot.doTextResponse(data.originalRequest.data.sender.id, "evento"), 3000); */
 		/* setTimeout(facebookBot.doTextResponse(facebookBot.getSenderBySessionId(data.sessionId), "pingggg"), 3000); */
