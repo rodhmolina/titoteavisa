@@ -638,9 +638,9 @@ app.post('/fulfillment/', (req, res) => {
 	
 		date.setHours(hours[0],hours[1],hours[2]);
 		console.log("when: " + date.getTime());
-		console.log("now: " + Date.now());
+		console.log("now: " + Date().getTime());
 		
-		var milliseconds = date.getTime() - Date.now();
+		var milliseconds = date.getTime() - Date().getTime();
 		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
