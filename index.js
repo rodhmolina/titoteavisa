@@ -636,7 +636,7 @@ app.post('/fulfillment/', (req, res) => {
 		var hours = time.toString().split(':');
 		console.log(hours.toString());
 	
-		date.setHours(hours[0],hours[1],hours[2]);
+		date.setUTCHours(hours[0],hours[1],hours[2]);
 		console.log("when: " + date.getTime());
 		console.log("now: " + Date.now());
 		
