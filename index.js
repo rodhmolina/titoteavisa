@@ -643,7 +643,7 @@ app.post('/fulfillment/', (req, res) => {
 		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
-		}, 3000);
+		}, milliseconds);
 		console.log("timer on: " + milliseconds.toString());
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
