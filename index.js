@@ -635,11 +635,12 @@ app.post('/fulfillment/', (req, res) => {
 		if(!time) time = Date.now().getTime;
 		var hours = time.toString().split(':');
 		console.log(hours.toString());
-
+	
 		date.setHours(hours[0],hours[1],hours[2]);
 		console.log(date.toString());
+		console.log(Date.now().toString());
 		
-		var milliseconds = date.getTime() - Date.now();
+		var milliseconds = date.getTime() - new Date;
 		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
