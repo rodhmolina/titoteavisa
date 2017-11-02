@@ -638,6 +638,7 @@ app.post('/fulfillment/', (req, res) => {
 
 		date.setHours(hours[0],hours[1],hours[2]);
 		console.log(date.toString());
+		console.log(Date.now().toString());
 		
 		var milliseconds = date - Date.now();
 		
