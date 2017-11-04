@@ -632,7 +632,7 @@ app.post('/fulfillment/', (req, res) => {
 		else date = new Date(Date.UTC(date));
 		console.log(date.toString());
 		
-		if(!time) time = Date.now().getUTCTime;
+		if(!time) time = Date.now().getTime;
 		var hours = time.toString().split(':');
 		console.log(hours.toString());
 	
