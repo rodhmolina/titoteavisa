@@ -628,15 +628,23 @@ app.post('/fulfillment/', (req, res) => {
 		var time = data.result.parameters.time;
 		console.log(date.toString());
 		
+		
+		
+		
+		if (!date && !time) { return res.send(nok); }
+		
+		
 		if (!date) date = new Date();
 		else date = new Date(date);
 		console.log(date.toString());
 		
-		if(!time) time = Date.now().getTime;
-		var hours = time.toString().split(':');
+		if (time) {
+			var hours = time.toString().split(':');
+			date.setHours(hours[0],hours[1],hours[2]);
+		}
 		console.log(hours.toString());
 	
-		date.setHours(hours[0],hours[1],hours[2]);
+		
 		console.log("when: " + date.getTime());
 		console.log("now: " + Date.now());
 		
