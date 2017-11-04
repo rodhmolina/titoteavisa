@@ -629,7 +629,7 @@ app.post('/fulfillment/', (req, res) => {
 		console.log(date.toString());
 		
 		if (!date) date = new Date();
-		else date = new Date(Date.UTC(date));
+		else date = new Date(date);
 		console.log(date.toString());
 		
 		if(!time) time = Date.now().getTime;
