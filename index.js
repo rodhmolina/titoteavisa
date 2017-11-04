@@ -628,15 +628,15 @@ app.post('/fulfillment/', (req, res) => {
 		var time = data.result.parameters.time;
 		console.log(date.toString());
 		
-		if (!date) date = new Date.UTC();
-		else date = new Date.UTC(date);
+		if (!date) date = new Date();
+		else date = new Date(Date.UTC(date));
 		console.log(date.toString());
 		
-		if(!time) time = Date.now().getTime;
+		if(!time) time = Date.now().getUTCTime;
 		var hours = time.toString().split(':');
 		console.log(hours.toString());
 	
-		date.setHours(hours[0],hours[1],hours[2]);
+		date.setUTCHours(hours[0],hours[1],hours[2]);
 		console.log("when: " + date.getTime());
 		console.log("now: " + Date.now());
 		
