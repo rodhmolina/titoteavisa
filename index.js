@@ -616,6 +616,7 @@ app.post('/fulfillment/', (req, res) => {
 	let action = data.result.action;
 	let sender = data.originalRequest.data.sender.id;
 	let sessionId = data.sessionId;
+	let now = Date.parse(data.timestamp);
 	
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
@@ -634,21 +635,21 @@ app.post('/fulfillment/', (req, res) => {
 		if (!date && !time) { return res.send(nok); }
 		
 		
-		if (!date) date = new Date();
-		else date = new Date(date);
-		console.log(date.toString());
+		if (!date) date = now;
+		var schedule = new Date(date);
+		console.log(schedule.toString());
 		
 		if (time) {
 			var hours = time.toString().split(':');
-			date.setHours(hours[0],hours[1],hours[2]);
+			schedule.setHours(hours[0],hours[1],hours[2]);
 		}
 		console.log(hours.toString());
 	
 		
-		console.log("when: " + date.getTime());
-		console.log("now: " + Date.now());
+		console.log("when: " + schedule.getTime());
+		console.log("now: " + Date.parse(now).toString());
 		
-		var milliseconds = date.getTime() - Date.now();
+		var milliseconds = schedule.getTime() - Date.parse(now);
 		
 		setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
