@@ -30,6 +30,8 @@ const APIAI_LANG = process.env.APIAI_LANG || 'es';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 const FB_TEXT_LIMIT = 640;
+const MONGODB_USER = process.env.MONGODB_USER;
+const MONGODB_PASS = process.env.MONGODB_PASS;
 
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
@@ -516,6 +518,15 @@ class FacebookBot {
 let facebookBot = new FacebookBot();
 
 const app = express();
+var mongoConnectionString = 'mongodb://MONGODB_USER:MONGODB_PASS@ds249325.mlab.com:49325/titoteavisadb';
+var agenda = new Agenda({db: {address: mongoConnectionString}});
+
+agenda.define('doTextResponse', function(job) {
+	var data = job.attrs.data;
+	facebookBot.doTextResponse(data.sender, data.message);
+	console.log("reminder sent");
+});
+
 app.aiSessions = new Map();
 
 app.use(bodyParser.text({type: 'application/json'}));
@@ -649,14 +660,24 @@ app.post('/fulfillment/', (req, res) => {
 		console.log("when: " + schedule.getTime());
 		console.log("now: " + Date.parse(now).toString());
 		
-		var milliseconds = schedule.getTime() - Date.parse(now);
+		/* var milliseconds = schedule.getTime() - Date.parse(now); */
 		
-		setTimeout(function(){
+		
+		agenda.schedule(time, 'doTextResponse', sender, "evento automatico", function(){
+			console.log("scheduled");
+		});
+		/* setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
-		}, milliseconds);
+		}, milliseconds); */
 		console.log("timer on: " + milliseconds.toString());
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
+});
+
+
+agenda.on('ready', function() {
+  agenda.start();
+  console.log("agenda started");
 });
 facebookBot.doSubscribeRequest();
