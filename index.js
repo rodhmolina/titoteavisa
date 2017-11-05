@@ -524,7 +524,7 @@ var agenda = new Agenda({db: {address: mongoConnectionString}});
 
 agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
-	facebookBot.doTextResponse(data.sender, data.message);
+	/* facebookBot.doTextResponse(data.sender, data.message); */
 	console.log("reminder sent");
 	done();
 });
@@ -668,6 +668,9 @@ app.post('/fulfillment/', (req, res) => {
 		agenda.schedule(time, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("scheduled");
 		});
+		/* agenda.now('doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+			console.log("now");
+		}); */
 		/* setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
 		}, milliseconds); 
@@ -677,6 +680,9 @@ app.post('/fulfillment/', (req, res) => {
     res.send("ok");
 });
 
+agenda.on('start:doTextResponse', function(job) {
+  console.log('started successfully: %s', job.attrs.data.sender);
+});
 agenda.on('success:doTextResponse', function(job) {
   console.log('Sent successfully: %s', job.attrs.data.sender);
 });
