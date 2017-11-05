@@ -665,7 +665,7 @@ app.post('/fulfillment/', (req, res) => {
 		/* var milliseconds = schedule.getTime() - Date.parse(now); */
 		
 		
-		agenda.schedule(time, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+		agenda.schedule("in 1 minute", 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("scheduled");
 		});
 		/* agenda.now('doTextResponse', { sender: sender, message: "evento automatico" }, function(){
