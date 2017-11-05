@@ -654,7 +654,7 @@ app.post('/fulfillment/', (req, res) => {
 		
 		if (time) {
 			var hours = time.toString().split(':');
-			schedule.setHours(hours[0],hours[1],hours[2]);
+			schedule.setUTCHours(hours[0],hours[1],hours[2]);
 		}
 		console.log(hours.toString());
 	
