@@ -665,12 +665,10 @@ app.post('/fulfillment/', (req, res) => {
 		/* var milliseconds = schedule.getTime() - Date.parse(now); */
 		
 		
-		agenda.schedule("in 1 minute", 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
-			console.log("scheduled");
+		agenda.schedule(schedule, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+			console.log("Scheduled: %s", sender);
 		});
-		/* agenda.now('doTextResponse', { sender: sender, message: "evento automatico" }, function(){
-			console.log("now");
-		}); */
+		
 		/* setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
 		}, milliseconds); 
@@ -680,9 +678,6 @@ app.post('/fulfillment/', (req, res) => {
     res.send("ok");
 });
 
-agenda.on('start:doTextResponse', function(job) {
-  console.log('started successfully: %s', job.attrs.data.sender);
-});
 agenda.on('success:doTextResponse', function(job) {
   console.log('Sent successfully: %s', job.attrs.data.sender);
 });
