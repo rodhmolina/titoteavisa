@@ -630,7 +630,7 @@ app.post('/fulfillment/', (req, res) => {
 	let sender = data.originalRequest.data.sender.id;
 	let sessionId = data.sessionId;
 	let now = new Date(data.timestamp);
-	console.log("now: " + Date.parse(now).toISOString());
+	console.log("now: " + now.toISOString());
 	
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
