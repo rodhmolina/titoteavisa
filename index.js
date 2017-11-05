@@ -524,7 +524,7 @@ var agenda = new Agenda({db: {address: mongoConnectionString}});
 
 agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
-	/* facebookBot.doTextResponse(data.sender, data.message); */
+	facebookBot.doTextResponse(data.sender, data.message);
 	console.log("reminder sent");
 	done();
 });
