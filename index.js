@@ -519,7 +519,7 @@ class FacebookBot {
 let facebookBot = new FacebookBot();
 
 const app = express();
-var mongoConnectionString = 'mongodb://${MONGODBUSER}:${MONGODBPASS}@ds249325.mlab.com:49325/titoteavisadb';
+var mongoConnectionString = `mongodb://${MONGODBUSER}:${MONGODBPASS}@ds249325.mlab.com:49325/titoteavisadb`;
 var agenda = new Agenda({db: {address: mongoConnectionString}});
 
 agenda.define('doTextResponse', function(job) {
