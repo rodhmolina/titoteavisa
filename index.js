@@ -630,6 +630,7 @@ app.post('/fulfillment/', (req, res) => {
 	let sender = data.originalRequest.data.sender.id;
 	let sessionId = data.sessionId;
 	let now = new Date(data.timestamp);
+	console.log("now: " + Date.parse(now).toISOString());
 	
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
@@ -649,23 +650,20 @@ app.post('/fulfillment/', (req, res) => {
 		
 		
 		if (!date) date = now;
-		var schedule = new Date(date);
-		console.log(schedule.toString());
+		var reminder = new Date(date);
+		console.log("reminder date:" + reminder.toISOString());
 		
 		if (time) {
 			var hours = time.toString().split(':');
-			schedule.setUTCHours(hours[0],hours[1],hours[2]);
+			reminder.setUTCHours(hours[0],hours[1],hours[2]);
 		}
-		console.log(hours.toString());
-	
-		
-		console.log("when: " + schedule.getTime());
-		console.log("now: " + Date.parse(now).toString());
-		
-		/* var milliseconds = schedule.getTime() - Date.parse(now); */
+		console.log("reminder time:" + reminder.toISOString());
 		
 		
-		agenda.schedule(schedule, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+		/* var milliseconds = reminder.getTime() - Date.parse(now); */
+		
+		
+		agenda.schedule(reminder, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender);
 		});
 		
