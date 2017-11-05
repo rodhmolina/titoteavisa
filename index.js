@@ -31,8 +31,8 @@ const APIAI_LANG = process.env.APIAI_LANG || 'es';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 const FB_TEXT_LIMIT = 640;
-const MONGODB_USER = process.env.MONGODB_USER;
-const MONGODB_PASS = process.env.MONGODB_PASS;
+const MONGODBUSER = process.env.MONGODB_USER;
+const MONGODBPASS = process.env.MONGODB_PASS;
 
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
@@ -519,7 +519,7 @@ class FacebookBot {
 let facebookBot = new FacebookBot();
 
 const app = express();
-var mongoConnectionString = 'mongodb://MONGODB_USER:MONGODB_PASS@ds249325.mlab.com:49325/titoteavisadb';
+var mongoConnectionString = 'mongodb://MONGODBUSER:MONGODBPASS@ds249325.mlab.com:49325/titoteavisadb';
 var agenda = new Agenda({db: {address: mongoConnectionString}});
 
 agenda.define('doTextResponse', function(job) {
