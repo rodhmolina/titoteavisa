@@ -522,10 +522,11 @@ const app = express();
 var mongoConnectionString = `mongodb://${MONGODBUSER}:${MONGODBPASS}@ds249325.mlab.com:49325/titoteavisadb`;
 var agenda = new Agenda({db: {address: mongoConnectionString}});
 
-agenda.define('doTextResponse', function(job) {
+agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
 	facebookBot.doTextResponse(data.sender, data.message);
 	console.log("reminder sent");
+	done();
 });
 
 app.aiSessions = new Map();
@@ -664,7 +665,7 @@ app.post('/fulfillment/', (req, res) => {
 		/* var milliseconds = schedule.getTime() - Date.parse(now); */
 		
 		
-		agenda.schedule(time, 'doTextResponse', sender, "evento automatico", function(){
+		agenda.schedule(time, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("scheduled");
 		});
 		/* setTimeout(function(){
