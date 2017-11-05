@@ -670,13 +670,19 @@ app.post('/fulfillment/', (req, res) => {
 		});
 		/* setTimeout(function(){
 			facebookBot.doTextResponse(sender, "evento automatico");
-		}, milliseconds); */
-		console.log("timer on: " + milliseconds.toString());
+		}, milliseconds); 
+		console.log("timer on: " + milliseconds.toString()); */
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
 });
 
+agenda.on('success:doTextResponse', function(job) {
+  console.log('Sent successfully: %s', job.attrs.data.sender);
+});
+agenda.on('fail:doTextResponse', function(err, job) {
+  console.log('Job failed with error: %s', err.message);
+});
 
 agenda.on('ready', function() {
   agenda.start();
