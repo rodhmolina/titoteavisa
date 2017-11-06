@@ -673,7 +673,7 @@ app.post('/fulfillment/', (req, res) => {
 
 		var event = {
 			sender: sender,
-			name: "alerta",
+			name: "FACEBOOK_WELCOME",
 			data: {
 				message: "recordatorio",
 			}
