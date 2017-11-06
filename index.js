@@ -651,13 +651,13 @@ app.post('/fulfillment/', (req, res) => {
 		
 		if (!date) date = now;
 		var reminder = new Date(date);
-		console.log("reminder date:" + reminder.toISOString());
+		console.log("reminder date:" + reminder.toTimeString());
 		
 		if (time) {
 			var hours = time.toString().split(':');
 			reminder.setHours(hours[0],hours[1],hours[2]);
 		}
-		console.log("reminder time:" + reminder.toISOString());
+		console.log("reminder time:" + reminder.toTimeString());
 		
 		
 		/* var milliseconds = reminder.getTime() - Date.parse(now); */
