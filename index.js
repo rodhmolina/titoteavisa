@@ -526,13 +526,13 @@ var agenda = new Agenda({db: {address: mongoConnectionString}});
 agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
 
-	var event = {
+/* 	var event = {
 		sender: data.sender,
 		name: "aviso",
 		data: {
 			message: data.message,
 		}
-	};
+	}; */
 
 	/* 		var event = {
 			sender: sender,
@@ -673,20 +673,23 @@ app.post('/fulfillment/', (req, res) => {
 			reminder.setHours(hours[0],hours[1],hours[2]);
 		}
 		/* console.log("reminder time:" + reminder.toString()); */
-		
-		agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
-			console.log("Scheduled: %s", sender.id);
-		});
-
-/* 		var event = {
-			sender: sender,
+	
+ 		var event = {
+			sender: sender.id,
 			name: "aviso",
 			data: {
 				message: "recordatorio",
 			}
-		};
+		};	
+		agenda.schedule(reminder, 'doTextResponse', event, function(){
+			console.log("Scheduled: %s", sender.id);
+		});
+		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
+					console.log("Scheduled: %s", sender.id);
+		}); */
+
 		
-		facebookBot.processFacebookEvent(event); */		
+		/*facebookBot.processFacebookEvent(event); */		
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
