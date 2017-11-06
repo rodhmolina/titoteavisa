@@ -669,10 +669,18 @@ app.post('/fulfillment/', (req, res) => {
 		}
 		/* console.log("reminder time:" + reminder.toString()); */
 		
-		agenda.schedule(reminder, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender);
-		});
-		
+		}); */
+
+		var event = {
+			name: "alerta",
+			data: {
+				message: data.message,
+			}
+		};
+
+		facebookBot.processFacebookEvent(event);		
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
