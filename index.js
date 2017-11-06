@@ -637,7 +637,7 @@ app.post('/event/', (req, res) => {
 app.post('/fulfillment/', (req, res) => {
 	const data = JSONbig.parse(req.body);
 	let action = data.result.action;
-	let sender = data.originalRequest.data.sender.id;
+	let sender = data.originalRequest.data.sender;
 	let sessionId = data.sessionId;
 	let now = new Date(data.timestamp);
 	console.log("now: " + now.toISOString());
@@ -645,8 +645,8 @@ app.post('/fulfillment/', (req, res) => {
 	if(action === "nuevorecordatorio"){
 		// Handle a text message from this sender
 		if (!app.aiSessions.has(sessionId)) {
-                app.aiSessions.set(sessionId,sender);
-				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
+                app.aiSessions.set(sessionId,sender.id);
+				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender.id));
             }
 		/* console.log("calculating time for: " + data.result.parameters.date + ' ' + data.result.parameters.time); */
 		var date = data.result.parameters.date;
@@ -669,8 +669,8 @@ app.post('/fulfillment/', (req, res) => {
 		}
 		/* console.log("reminder time:" + reminder.toString()); */
 		
-		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
-			console.log("Scheduled: %s", sender);
+		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
+			console.log("Scheduled: %s", sender.id);
 		}); */
 
 		var event = {
