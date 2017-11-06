@@ -655,7 +655,7 @@ app.post('/fulfillment/', (req, res) => {
 		
 		if (time) {
 			var hours = time.toString().split(':');
-			reminder.setUTCHours(hours[0],hours[1],hours[2]);
+			reminder.setHours(hours[0],hours[1],hours[2]);
 		}
 		console.log("reminder time:" + reminder.toISOString());
 		
@@ -663,7 +663,7 @@ app.post('/fulfillment/', (req, res) => {
 		/* var milliseconds = reminder.getTime() - Date.parse(now); */
 		
 		
-		agenda.schedule(reminder.toISOString(), 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+		agenda.schedule(reminder.toTimeString(), 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender);
 		});
 		
