@@ -651,19 +651,19 @@ app.post('/fulfillment/', (req, res) => {
 		
 		if (!date) date = now;
 		var reminder = new Date(date);
-		console.log("reminder date:" + reminder.toTimeString());
+		console.log("reminder date:" + reminder.toString());
 		
 		if (time) {
 			var hours = time.toString().split(':');
 			reminder.setHours(hours[0],hours[1],hours[2]);
 		}
-		console.log("reminder time:" + reminder.toTimeString());
+		console.log("reminder time:" + reminder.toString());
 		
 		
 		/* var milliseconds = reminder.getTime() - Date.parse(now); */
 		
 		
-		agenda.schedule(reminder.toTimeString(), 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+		agenda.schedule(reminder.toString(), 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender);
 		});
 		
