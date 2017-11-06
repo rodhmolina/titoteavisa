@@ -527,12 +527,20 @@ agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
 
 	var event = {
-		name: "alerta",
+		sender: data.sender,
+		name: "aviso",
 		data: {
 			message: data.message,
 		}
 	};
 
+	/* 		var event = {
+			sender: sender,
+			name: "aviso",
+			data: {
+				message: "recordatorio",
+			}
+		};
 	facebookBot.processFacebookEvent(event);
 	
 	/* facebookBot.doTextResponse(data.sender, data.message); */
@@ -666,11 +674,11 @@ app.post('/fulfillment/', (req, res) => {
 		}
 		/* console.log("reminder time:" + reminder.toString()); */
 		
-		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
+		agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender.id);
-		}); */
+		});
 
-		var event = {
+/* 		var event = {
 			sender: sender,
 			name: "aviso",
 			data: {
@@ -678,7 +686,7 @@ app.post('/fulfillment/', (req, res) => {
 			}
 		};
 		
-		facebookBot.processFacebookEvent(event);		
+		facebookBot.processFacebookEvent(event); */		
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
