@@ -37,6 +37,8 @@ const MONGODBPASS = process.env.MONGODB_PASS;
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
 
+require('request').debug = true
+
 class FacebookBot {
     constructor() {
         this.apiAiService = apiai(APIAI_ACCESS_TOKEN, {language: APIAI_LANG, requestSource: "fb"});
@@ -369,7 +371,7 @@ class FacebookBot {
 
             }
         });
-		console.log(JSON.stringify(apiaiRequest));
+
         apiaiRequest.on('error', (error) => console.error(error));
         apiaiRequest.end();
     }
@@ -676,7 +678,7 @@ app.post('/fulfillment/', (req, res) => {
 				message: "recordatorio",
 			}
 		};
-
+		
 		facebookBot.processFacebookEvent(event);		
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
