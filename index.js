@@ -298,7 +298,7 @@ class FacebookBot {
             }
         }
 
-        return null;
+        return event;
     }
 
     processFacebookEvent(event) {
@@ -524,7 +524,17 @@ var agenda = new Agenda({db: {address: mongoConnectionString}});
 
 agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
-	facebookBot.doTextResponse(data.sender, data.message);
+
+	var event = {
+		name: "alerta",
+		data: {
+			message: data.message,
+		}
+	};
+
+	facebookBot.processFacebookEvent(event);
+	
+	/* facebookBot.doTextResponse(data.sender, data.message); */
 	console.log("reminder sent");
 	done();
 });
@@ -638,10 +648,10 @@ app.post('/fulfillment/', (req, res) => {
                 app.aiSessions.set(sessionId,sender);
 				console.log("saving " + JSON.stringify(sessionId) + ':' + JSON.stringify(sender));
             }
-		console.log("calculating time for: " + data.result.parameters.date + ' ' + data.result.parameters.time);
+		/* console.log("calculating time for: " + data.result.parameters.date + ' ' + data.result.parameters.time); */
 		var date = data.result.parameters.date;
 		var time = data.result.parameters.time;
-		console.log(date.toString());
+		/* console.log(date.toString()); */
 		
 		
 		
@@ -651,25 +661,18 @@ app.post('/fulfillment/', (req, res) => {
 		
 		if (!date) date = now;
 		var reminder = new Date();
-		console.log("reminder date:" + reminder.toString());
+		/* console.log("reminder date:" + reminder.toString()); */
 		
 		if (time) {
 			var hours = time.toString().split(':');
 			reminder.setHours(hours[0],hours[1],hours[2]);
 		}
-		console.log("reminder time:" + reminder.toString());
-				
-		/* var milliseconds = reminder.getTime() - Date.parse(now); */
-	
+		/* console.log("reminder time:" + reminder.toString()); */
 		
 		agenda.schedule(reminder, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender);
 		});
 		
-		/* setTimeout(function(){
-			facebookBot.doTextResponse(sender, "evento automatico");
-		}, milliseconds); 
-		console.log("timer on: " + milliseconds.toString()); */
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
