@@ -37,7 +37,6 @@ const MONGODBPASS = process.env.MONGODB_PASS;
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
 
-require('request').debug = true
 
 class FacebookBot {
     constructor() {
