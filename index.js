@@ -540,7 +540,7 @@ agenda.define('doTextResponse', function(job, done) {
 			data: {
 				message: "recordatorio",
 			}
-		};
+		};*/
 	facebookBot.processFacebookEvent(event);
 	
 	/* facebookBot.doTextResponse(data.sender, data.message); */
