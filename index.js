@@ -674,6 +674,7 @@ app.post('/fulfillment/', (req, res) => {
 		}); */
 
 		var event = {
+			id: sender,
 			name: "alerta",
 			data: {
 				message: data.message,
