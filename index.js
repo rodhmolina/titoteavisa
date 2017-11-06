@@ -369,7 +369,7 @@ class FacebookBot {
 
             }
         });
-
+		console.log(JSON.stringify(apiaiRequest));
         apiaiRequest.on('error', (error) => console.error(error));
         apiaiRequest.end();
     }
@@ -673,7 +673,7 @@ app.post('/fulfillment/', (req, res) => {
 			sender: sender,
 			name: "alerta",
 			data: {
-				message: data.message,
+				message: "recordatorio",
 			}
 		};
 
