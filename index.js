@@ -663,7 +663,7 @@ app.post('/fulfillment/', (req, res) => {
 		/* var milliseconds = reminder.getTime() - Date.parse(now); */
 		
 		
-		agenda.schedule(reminder, 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
+		agenda.schedule(reminder.toISOString(), 'doTextResponse', { sender: sender, message: "evento automatico" }, function(){
 			console.log("Scheduled: %s", sender);
 		});
 		
