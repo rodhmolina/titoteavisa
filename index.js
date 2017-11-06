@@ -651,13 +651,9 @@ app.post('/fulfillment/', (req, res) => {
 		/* console.log("calculating time for: " + data.result.parameters.date + ' ' + data.result.parameters.time); */
 		var date = data.result.parameters.date;
 		var time = data.result.parameters.time;
-		/* console.log(date.toString()); */
-		
-		
-		
+		/* console.log(date.toString()); */		
 		
 		if (!date && !time) { return res.send(nok); }
-		
 		
 		if (!date) date = now;
 		var reminder = new Date();
@@ -674,7 +670,7 @@ app.post('/fulfillment/', (req, res) => {
 		}); */
 
 		var event = {
-			id: sender,
+			sender: sender,
 			name: "alerta",
 			data: {
 				message: data.message,
