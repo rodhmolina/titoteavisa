@@ -528,22 +528,6 @@ agenda.define('doTextResponse', function(job, done) {
 
 	facebookBot.doTextResponse(data.sender.id, data.data.message);
 	
-/* 	var event = {
-		sender: data.sender,
-		name: "aviso",
-		data: {
-			message: data.message,
-		}
-	}; */
-
-	/* 		var event = {
-			sender: sender,
-			name: "aviso",
-			data: {
-				message: "recordatorio",
-			}
-		};*/
-	
 	facebookBot.processFacebookEvent(data);
 	
 	
@@ -666,7 +650,7 @@ app.post('/fulfillment/', (req, res) => {
 		var message = data.result.parameters.resolvedQuery;
 		/* console.log(date.toString()); */		
 		
-		if (!date && !time) { return res.send(nok); }
+		if (!date && !time) { return res.send("nok"); }
 		
 		if (!date) date = now;
 		var reminder = new Date();
@@ -686,14 +670,9 @@ app.post('/fulfillment/', (req, res) => {
 			}
 		};	
 		agenda.schedule(reminder, 'doTextResponse', event, function(){
-			console.log("Scheduled: %s", sender.id);
+			console.log("Scheduled: %s", sender.id.toString());
 		});
-		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
-					console.log("Scheduled: %s", sender.id);
-		}); */
 
-		
-		/*facebookBot.processFacebookEvent(event); */		
 	}
 	console.log("fulfillment:\n" + JSON.stringify(data));
     res.send("ok");
