@@ -544,7 +544,7 @@ agenda.define('doTextResponse', function(job, done) {
 			}
 		};*/
 	
-	facebookBot.processFacebookEvent(event);
+	facebookBot.processFacebookEvent(data);
 	
 	
 	console.log("reminder sent");
