@@ -526,7 +526,7 @@ var agenda = new Agenda({db: {address: mongoConnectionString}});
 agenda.define('doTextResponse', function(job, done) {
 	var data = job.attrs.data;
 
-	facebookBot.doTextResponse(data.sender, data.data.message);
+	facebookBot.doTextResponse(data.sender.id, data.data.message);
 	
 /* 	var event = {
 		sender: data.sender,
@@ -679,7 +679,7 @@ app.post('/fulfillment/', (req, res) => {
 		/* console.log("reminder time:" + reminder.toString()); */
 	
  		var event = {
-			sender: sender.id,
+			sender: sender,
 			name: "aviso",
 			data: {
 				message: "Recordatorio",
