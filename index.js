@@ -685,7 +685,7 @@ app.post('/fulfillment/', (req, res) => {
 				message: "Recordatorio",
 			}
 		};	
-		agenda.schedule(reminder, 'doTextResponse', event, function(){
+		agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, name: "aviso", data: { message: "evento automatico" }}, function(){
 			console.log("Scheduled: %s", sender.id);
 		});
 		/* agenda.schedule(reminder, 'doTextResponse', { sender: sender.id, message: "evento automatico" }, function(){
